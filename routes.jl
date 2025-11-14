@@ -38,7 +38,7 @@ end
 
 # Route to serve the welcome page
 route("/") do
-    serve_static_file("welcome.html")
+    serve_static_file("index.html")
 end
 
 # Route to serve the signup page
@@ -65,11 +65,11 @@ route("/services", method=GET) do
 end
 
 route("/signup", method=POST) do
-    serve_static_file("dashboard.html")
+    serve_static_file("welcome.html")
 end
 
 route("/login", method=POST) do
-    serve_static_file("dashboard.html")
+    serve_static_file("welcome.html")
 end
 
 # Route to handle user signup
