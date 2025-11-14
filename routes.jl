@@ -51,54 +51,75 @@ route("/login", method=GET) do
     serve_static_file("login.html")
 end
 
-# Route to handle user signup
-route("/signup", method=POST) do
-    payload = Requests.postpayload()
-
-    firstName = strip(get(payload, "firstName", ""))
-    lastName = strip(get(payload, "lastName", ""))
-    email = strip(get(payload, "email", ""))
-    password = get(payload, "password", "")
-    termsAccepted = get(payload, "terms", "false") == "on"
-
-    # Validate required fields
-    if isempty(firstName) || isempty(lastName) || isempty(email) || isempty(password)
-        return json(Dict("status" => "error", "message" => "All fields are required."))
-    end
-
-    # Validate email format
-    if !is_valid_email(email)
-        return json(Dict("status" => "error", "message" => "Invalid email format."))
-    end
-
-    # Check terms acceptance
-    if !termsAccepted
-        return json(Dict("status" => "error", "message" => "You must accept the terms and conditions."))
-    end
-
-    df = load_credentials()
-
-    # Check if email already registered (case insensitive)
-    if any(lowercase.(df.email) .== lowercase(email))
-        return json(Dict("status" => "error", "message" => "Email already registered."))
-    end
-
-    # Hash the password before storing
-    passwordHash = hash_password(password)
-
-    new_user = DataFrame(
-        firstName = [firstName],
-        lastName = [lastName],
-        email = [email],
-        passwordHash = [passwordHash],
-        termsAccepted = [termsAccepted]
-    )
-
-    df = vcat(df, new_user)
-    save_credentials(df)
-
-    return json(Dict("status" => "success", "message" => "Signup successful."))
+route("/about", method=GET) do
+    serve_static_file("about.html")
 end
+
+
+route("/contact", method=GET) do
+    serve_static_file("contact.html")
+end
+
+route("/services", method=GET) do
+    serve_static_file("services.html")
+end
+
+route("/signup", method=POST) do
+    serve_static_file("dashboard.html")
+end
+
+route("/login", method=POST) do
+    serve_static_file("dashboard.html")
+end
+
+# Route to handle user signup
+# route("/signup", method=POST) do
+#     payload = Requests.postpayload()
+
+#     firstName = strip(get(payload, "firstName", ""))
+#     lastName = strip(get(payload, "lastName", ""))
+#     email = strip(get(payload, "email", ""))
+#     password = get(payload, "password", "")
+#     termsAccepted = get(payload, "terms", "false") == "on"
+
+#     # Validate required fields
+#     if isempty(firstName) || isempty(lastName) || isempty(email) || isempty(password)
+#         return json(Dict("status" => "error", "message" => "All fields are required."))
+#     end
+
+#     # Validate email format
+#     if !is_valid_email(email)
+#         return json(Dict("status" => "error", "message" => "Invalid email format."))
+#     end
+
+#     # Check terms acceptance
+#     if !termsAccepted
+#         return json(Dict("status" => "error", "message" => "You must accept the terms and conditions."))
+#     end
+
+#     df = load_credentials()
+
+#     # Check if email already registered (case insensitive)
+#     if any(lowercase.(df.email) .== lowercase(email))
+#         return json(Dict("status" => "error", "message" => "Email already registered."))
+#     end
+
+#     # Hash the password before storing
+#     passwordHash = hash_password(password)
+
+#     new_user = DataFrame(
+#         firstName = [firstName],
+#         lastName = [lastName],
+#         email = [email],
+#         passwordHash = [passwordHash],
+#         termsAccepted = [termsAccepted]
+#     )
+
+#     df = vcat(df, new_user)
+#     save_credentials(df)
+
+#     return json(Dict("status" => "success", "message" => "Signup successful."))
+# end
 
 # Route to handle user login
 route("/login", method=POST) do
