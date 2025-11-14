@@ -36,7 +36,7 @@ try
     #println("\033c")
     println("""
     
-    Starting 3lue Library server...
+    Starting PMS server...
     Server running at http://$(Genie.config.server_host):$(Genie.config.server_port)
     Press Ctrl+C to stop the server
     """)

@@ -47,9 +47,107 @@
             </li>
             <li class="nav-item">
                 <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <main class="app-main">
+        <header class="app-header">
+            <h1>Components</h1>
+            <div class="user-menu">
+                <span class="user-name">John Doe</span>
+                <img src="img/avatar.jpg" alt="User Avatar" class="user-avatar">
+            </div>
+        </header>
+        <div class="app-content">
+            <div class="content-header">
+                <div class="form-actions">
+                    <div class="form-group">
+                        <input type="search" id="component-search" placeholder="Search components...">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="new-component-btn">
+                            <i class="fas fa-plus"></i> New Component
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-list">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Project</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="component-table-body">
+                        <!-- Component items will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
 
+    <!-- Component Modal -->
+    <div class="modal" id="component-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add New Component</h2>
+                <button class="modal-close" id="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="component-form">
+                    <input type="hidden" id="component-id">
+                    <div class="form-group">
+                        <label for="component-name">Component Name</label>
+                        <input type="text" id="component-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="component-type">Component Type</label>
+                        <select id="component-type">
+                            <option value="sensor">Sensor</option>
+                            <option value="microcontroller">Microcontroller</option>
+                            <option value="display">Display</option>
+                            <option value="power">Power Supply</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="component-status">Status</label>
+                        <select id="component-status">
+                            <option value="available">Available</option>
+                            <option value="in-use">In Use</option>
+                            <option value="ordered">Ordered</option>
+                            <option value="deprecated">Deprecated</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="component-project">Project</label>
+                        <select id="component-project">
+                            <option value="">None</option>
+                            <option value="project1">Compass Navigation System v2</option>
+                            <option value="project2">Marine Compass Prototype</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancel-component">Cancel</button>
+                <button class="btn btn-primary" id="save-component">Save Component</button>
+            </div>
+        </div>
+    </div>
 
-
-
-
-                    
+    <script src="js/app.js"></script>
+    <script src="js/component-manager.js"></script>
+</body>
+</html>

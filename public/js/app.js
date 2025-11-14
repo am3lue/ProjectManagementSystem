@@ -4,6 +4,14 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Apply theme from local storage
+    const applyTheme = () => {
+        const theme = localStorage.getItem('theme') || 'dark-theme';
+        document.body.classList.remove('dark-theme', 'light-theme');
+        document.body.classList.add(theme);
+    };
+    applyTheme();
+
     // Mobile navigation toggle
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
@@ -19,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const isNavButton = event.target.closest('#nav-toggle');
         const isNavMenu = event.target.closest('.nav-menu');
         
-        if (!isNavButton && !isNavMenu && navMenu.classList.contains('active')) {
+        if (!isNavButton && !isNavMenu && navMenu && navMenu.classList.contains('active')) {
             navMenu.classList.remove('active');
         }
     });
@@ -31,12 +39,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (userAvatar) {
         userAvatar.addEventListener('click', function(e) {
             e.stopPropagation();
-            userMenu.classList.toggle('active');
+            if(userMenu) {
+                userMenu.classList.toggle('active');
+            }
         });
         
         // Close user dropdown when clicking outside
         document.addEventListener('click', function(event) {
-            if (!userMenu.contains(event.target)) {
+            if (userMenu && !userMenu.contains(event.target)) {
                 userMenu.classList.remove('active');
             }
         });
