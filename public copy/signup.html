@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Compass Hardware CMS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --primary-hover: #3a56d4;
+            --secondary-color: #4cc9f0;
+            --dark-color: #1a1a2e;
+            --light-color: #f8f9fa;
+            --success-color: #38b000;
+            --error-color: #e63946;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: #f8f9fa;
+            height: 100vh;
+        }
+        .auth-container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            min-height: 80vh;
+            background-color: rgba(30, 41, 59, 0.7);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        .auth-visualization {
+            flex: 1;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1), rgba(76, 201, 240, 0.1));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-visualization::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+            background-size: cover;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .visualization-title {
+            margin-bottom: 2.5rem;
+            text-align: center;
+            color: var(--light-color);
+            font-size: 2rem;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .visualization-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
+        }
+
+        .chart-container {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 2.5rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .chart-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .auth-card {
+            flex: 1;
+            padding: 3rem;
+            background-color: rgba(15, 23, 42, 0.9);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .auth-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .auth-logo {
+            display: flex;
+            align-items: center;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .auth-logo i {
+            font-size: 1.8rem;
+            margin-right: 0.8rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .auth-header h1 {
+            color: var(--light-color);
+            margin-bottom: 1rem;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .auth-header p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        /* Form styling */
+        .auth-form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .auth-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            transition: var(--transition);
+        }
+
+        .input-with-icon input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 3rem;
+            height: 50px;
+            border-radius: var(--border-radius);
+            border: 1px solid #334155;
+            background-color: rgba(30, 41, 59, 0.5);
+            color: var(--light-color);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .input-with-icon input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background-color: rgba(30, 41, 59, 0.8);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .input-with-icon input:focus + i {
+            color: var(--primary-color);
+        }
+
+        .password-strength {
+            margin-top: 0.8rem;
+        }
+
+        .strength-meter {
+            height: 5px;
+            background-color: #334155;
+            margin-bottom: 0.5rem;
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .strength-meter::before {
+            content: "";
+            height: 100%;
+            width: 0;
+            background-color: var(--error-color);
+            position: absolute;
+            border-radius: 3px;
+            transition: width 0.3s, background-color 0.3s;
+        }
+
+        .strength-text {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .terms-checkbox input {
+            margin-right: 0.8rem;
+            margin-top: 0.3rem;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color);
+        }
+
+        .terms-checkbox label {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        .terms-checkbox a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .terms-checkbox a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            color: white;
+            border: none;
+            padding: 0.9rem 0;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-hover), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: #64748b;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #334155;
+        }
+
+        .auth-divider span {
+            padding: 0 15px;
+            font-size: 0.9rem;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-social {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 0;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            border: 1px solid #334155;
+            background-color: transparent;
+            color: var(--light-color);
+            transition: var(--transition);
+        }
+
+        .btn-social i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .btn-google:hover {
+            background-color: rgba(234, 67, 53, 0.1);
+            border-color: #ea4335;
+        }
+
+        .btn-github:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: #ffffff;
+        }
+
+        .auth-footer {
+            text-align: center;
+            color: #94a3b8;
+            margin-top: auto;
+            padding-top: 1.5rem;
+        }
+
+        .auth-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .auth-footer a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        /* Status message styling */
+        .status-message {
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: var(--border-radius);
+            display: none;
+            font-weight: 500;
+        }
+
+        .status-success {
+            background-color: rgba(56, 176, 0, 0.1);
+            border: 1px solid rgba(56, 176, 0, 0.3);
+            color: #38b000;
+        }
+
+        .status-error {
+            background-color: rgba(230, 57, 70, 0.1);
+            border: 1px solid rgba(230, 57, 70, 0.3);
+            color: #e63946;
+        }
+
+        @media (max-width: 992px) {
+            .auth-container {
+                flex-direction: column;
+                min-height: auto;
+            }
+            
+            .auth-visualization {
+                padding: 2rem 1.5rem;
+                order: 2;
+            }
+            
+            .auth-card {
+                padding: 2rem 1.5rem;
+                order: 1;
+            }
+            
+            .social-login {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .auth-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .auth-logo {
+                font-size: 1.1rem;
+            }
+            
+            .auth-logo i {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-visualization">
+            <h2 class="visualization-title">Component Distribution</h2>
+            
+            <div class="chart-container">
+                <canvas id="distributionChart"></canvas>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="usageChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="auth-card">
+            <div class="auth-header">
+                <a href="welcome.html" class="auth-logo">
+                    <i class="fas fa-compass"></i>
+                    <span>Compass Hardware CMS</span>
+                </a>
+                <h1>Create an Account</h1>
+                <p>Join us to manage your compass hardware components efficiently.</p>
+            </div>
+            
+            <!-- Add status message div -->
+            <div id="status-message" class="status-message"></div>
+            
+            <form id="signup-form" class="auth-form" method="POST" action="/signup">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="first-name">First Name</label>
+                            <div class="input-with-icon">
+                                <input type="text" id="first-name" name="firstName" required>
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="last-name">Last Name</label>
+                            <div class="input-with-icon">
+                                <input type="text" id="last-name" name="lastName" required>
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="password-strength">
+                        <div class="strength-meter"></div>
+                        <span class="strength-text">Password strength</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="confirm-password" name="confirmPassword" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="terms-checkbox">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a></label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+            </form>
+            
+            <div class="auth-divider">
+                <span>OR</span>
+            </div>
+            
+            <div class="social-login">
+                <button class="btn btn-social btn-google">
+                    <i class="fab fa-google"></i>
+                    <span>Sign up with Google</span>
+                </button>
+                <button class="btn btn-social btn-github">
+                    <i class="fab fa-github"></i>
+                    <span>Sign up with GitHub</span>
+                </button>
+            </div>
+            
+            <div class="auth-footer">
+                <p>Already have an account? <a href="login.html">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script>
+        // Initialize charts with random data
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set Chart.js default options for light theme in dark background
+            Chart.defaults.color = '#ffffff';
+            Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+            
+            // Distribution chart (pie chart)
+            const distributionCtx = document.getElementById('distributionChart').getContext('2d');
+            const distributionChart = new Chart(distributionCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Magnetic Sensors', 'Microcontrollers', 'Display Units', 'Power Systems', 'Connectors'],
+                    datasets: [{
+                        data: [35, 25, 15, 15, 10],
+                        backgroundColor: [
+                            '#4a6cf7',
+                            '#ff6384',
+                            '#36a2eb',
+                            '#ffcd56',
+                            '#4bc0c0'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Component Type Distribution'
+                        }
+                    },
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true
+                    }
+                }
+            });
+            
+            // Usage chart (bar chart)
+            const usageCtx = document.getElementById('usageChart').getContext('2d');
+            const usageChart = new Chart(usageCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Project A', 'Project B', 'Project C', 'Project D', 'Project E'],
+                    datasets: [{
+                        label: 'Component Usage',
+                        data: [65, 59, 80, 81, 56],
+                        backgroundColor: 'rgba(74, 108, 247, 0.7)',
+                        borderColor: '#4a6cf7',
+                        borderWidth: 0,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Component Usage'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
