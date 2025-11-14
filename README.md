@@ -22,9 +22,11 @@ The PMS welcome page (`public/welcome.html`) serves as the opening page for user
 
 ## How to Use
 
-1. Open `public/welcome.html` in a web browser to view the welcome page.
-2. Customize the page and styles as needed to fit your project requirements.
-3. Integrate with backend services and functionality as per your project setup.
+1. Clone the repo form Githuvb ```code https://github.com/am3lue/projectmanagementsystem ```
+2. Then on your terminal while its on the project dir run`julia init.jl` to initalize the project
+3. Well then run `julia serve.jl` to start the sever
+4. well Everything will be displayed ovethere 
+5. Dont forget to report the bugs for fixing
 
 ## Dependencies
 
@@ -37,7 +39,7 @@ This project is MIT licensed. See the [LICENSE](https://github.com/GenieFramewor
 
 ## Contributors
 
-Created by [Adrian Salceanu](https://github.com/essenciary) and awesome contributors.
+Created by [O'brien](https://github.com/O-yk19) and awesome contributors.
 
 ---
 
